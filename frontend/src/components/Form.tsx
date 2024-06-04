@@ -10,7 +10,7 @@ interface FormProps {
 
 export default function Form(props: FormProps) {
   const router = useRouter();
-  const {saveItem, getById} = useItem();
+  const {saveItem, getById, getAll} = useItem();
   const id = props.id ?? "";
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -78,6 +78,7 @@ export default function Form(props: FormProps) {
           onClick={() => {
             saveItem(name, price, description, purchasedIn, responsable, id);
             router.push("/Dashboard");
+            getAll();
           }}
         >
           {id ? "Alterar" : "Salvar"}
