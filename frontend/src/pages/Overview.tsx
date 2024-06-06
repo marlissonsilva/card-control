@@ -5,13 +5,7 @@ interface OverviewProps {}
 export default function Overview(props: OverviewProps) {
   return (
     <section className="wrapper h-full pt-4 text-white">
-      <Image
-        src={"/image.png"}
-        alt="imagem"
-        width={400}
-        height={400}
-        className="w-full object-cover rounded-md"
-      />
+      <video controls src="/overview.webm"></video>
       <div className="text-xl space-y-4">
         <h1 className="text-center text-6xl py-6">
           Controle de cartão de crédito
