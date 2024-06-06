@@ -9,7 +9,7 @@ export default class Request {
   public router = useRouter();
 
   static port: number = 4000;
-  static urlBase: string = `http://localhost:${this.port}`;
+  static urlBase: string = `https://card-control-zeta.vercel.app/`;
 
   static addToken(token: string) {
     Request.headers = {...Request.headers, Authorization: `Bearer ${token}`};
