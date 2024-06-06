@@ -1,15 +1,29 @@
 import useItem from "@/hooks/useItem";
+import moment from "moment-timezone";
 import {IconEdit, IconTrash} from "@tabler/icons-react";
 import Link from "next/link";
-interface CardProps {}
+import {useState} from "react";
+interface CardProps {
+  alterarAmount(value: number): void;
+}
 
 export default function Card(props: CardProps) {
   const {items, deleteItem} = useItem();
-  function currentFormat(value: number) {
+
+  const totalPrices = items?.reduce((acc, item) => acc + item.price, 0);
+  props.alterarAmount(totalPrices);
+
+  function currencyFormat(value: number) {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
     }).format(value);
+  }
+
+  function dateFormat(date: string) {
+    const dateISO = moment.tz(date, "UTC");
+    const reverseDate = moment(dateISO).format("DD-MM-YYYY");
+    return reverseDate;
   }
 
   function renderData() {
@@ -33,7 +47,7 @@ export default function Card(props: CardProps) {
               Preço:{" "}
               {
                 <span className="text-2xl font-semibold">
-                  {currentFormat(item.price)}
+                  {currencyFormat(item.price)}
                 </span>
               }
             </p>
@@ -42,7 +56,9 @@ export default function Card(props: CardProps) {
             </p>
             <p className="text-lg ">
               Comprado em:{" "}
-              <span className="font-medium">{item.purchasedIn}</span>
+              <span className="font-medium">
+                {dateFormat(item.purchasedIn)}
+              </span>
             </p>
             <p className="text-lg ">
               Responsável:{" "}

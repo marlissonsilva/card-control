@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Title from "./Title";
 import Footer from "./Footer";
+import Head from "next/head";
 
 interface LayoutProps {
   children: any;
@@ -10,6 +11,19 @@ interface LayoutProps {
 
 export default function Layout(props: LayoutProps) {
   return (
+    <>
+      <Head>
+        <meta
+          name="description"
+          content="Sistema de gestão de cartão de crédito, voltado para cartões que várias pessoas usam."
+        />
+        <meta
+          name="keywords"
+          content="gestão, cartão de crédito, fatura, controle, card"
+        />
+        <meta name="author" content="Marlisson Silva" />
+        <title>Card Control</title>
+      </Head>
       <main className="h-auto  bg-zinc-800">
         <Header />
         <section
@@ -22,5 +36,6 @@ export default function Layout(props: LayoutProps) {
         </section>
         <Footer />
       </main>
-  )
+    </>
+  );
 }

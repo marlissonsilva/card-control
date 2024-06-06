@@ -25,8 +25,8 @@ export default function Form(props: FormProps) {
         setName(item.name);
         setPrice(item.price);
         setDescription(item.description);
-        setPurchasedIn(item.description);
-        setResponsable(item.description);
+        setPurchasedIn(item.purchasedIn);
+        setResponsable(item.responsable);
       }
     })();
   }, []);
@@ -62,7 +62,7 @@ export default function Form(props: FormProps) {
         label="purchasedIn"
         text="Comprado em"
         type="date"
-        value={purchasedIn}
+        value={purchasedIn.slice(0, 10)}
         valueChange={setPurchasedIn}
       />
       <Input

@@ -1,15 +1,26 @@
-import Button from "@/components/Button";
+import Amount from "@/components/Amount";
 import Card from "@/components/Card";
 import Layout from "@/components/Layout";
-import Request from "@/core/Request";
-import Link from "next/link";
-import {useRouter} from "next/router";
+import useItem from "@/hooks/useItem";
+import {useState} from "react";
 export default function Dashboard() {
-  const router = useRouter();
+  const [amount, setAmount] = useState(0);
+
+  function currencyFormat(value: number) {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  }
+
+  function alterar(value: number) {
+    setAmount(value);
+  }
 
   return (
     <Layout title="Lista de compras" className="min-h-[95vh]">
-      <Card />
+      <Amount value={currencyFormat(amount)} />
+      <Card alterarAmount={alterar} />
     </Layout>
   );
 }
