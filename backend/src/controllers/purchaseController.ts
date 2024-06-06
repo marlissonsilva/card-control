@@ -26,7 +26,10 @@ const purchaseController = {
 
   getAll: async (req: AuthRequest, res: Response) => {
     try {
-      const purchases = await Purchase.find({user: req.user?._id});
+      const purchases = await Purchase.find({user: req.user?._id}).sort({
+        purchasedIn: -1,
+      });
+      // TODO: criar uma forma de vir o filtro desejado do frontend
       res.json(purchases);
     } catch (error) {
       res.status(500).send("Server error");
@@ -63,7 +66,7 @@ const purchaseController = {
       if (!purchase) {
         return res.status(404).json({message: "Compra não encontrada"});
       }
-      
+
       if (name !== undefined) {
         purchase.name = name;
       }
@@ -82,7 +85,6 @@ const purchaseController = {
 
       try {
         const updatedPurchase = await purchase.save();
-        console.log(updatedPurchase);
         res.json(updatedPurchase);
       } catch (error) {
         res.status(500).json({message: "Erro ao atualizar a compra", error});
