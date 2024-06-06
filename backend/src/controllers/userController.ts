@@ -58,7 +58,6 @@ const userController = {
       {_id: selectedUser._id, email: selectedUser.email},
       process.env.ACCESS_TOKEN_SECRET as "Secret"
     );
-    console.log({_id: selectedUser._id, email: selectedUser.email});
     res.status(200).json(token);
   },
 };
