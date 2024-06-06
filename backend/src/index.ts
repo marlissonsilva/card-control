@@ -9,7 +9,7 @@ import cors from "cors";
 const app = express();
 const port = 4000;
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://card-control-ten.vercel.app"],
   optionsSuccessStatus: 200,
 };
 
