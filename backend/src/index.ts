@@ -1,30 +1,12 @@
-import "dotenv/config";
-import express from "express";
-import connectDatabase from "./db/conect";
-import userRoutes from "./routes/userRoutes";
-import purchaseRoutes from "./routes/purchaseRoutes";
-import auth from "./middleware/auth";
-import cors from "cors";
+import express from 'express'
 
-const app = express();
-const port = 4000;
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://card-control-ten.vercel.app"],
-  optionsSuccessStatus: 200,
-};
+const app = express()
+const port = 4000
 
-async function startServer() {
-  connectDatabase();
-  app.use(express.json());
-  app.use(cors(corsOptions));
-  app.use("/user", userRoutes);
-  app.use("/purchase", auth, purchaseRoutes);
+app.get("/", (req, res) => {
+    res.send("<h1>Olá mundo</h1>")
+})
 
-  app.listen(port, () => {
-    console.log(`Servidor rodando! Acesse em http://localhost:${port}`);
-  });
-}
-
-startServer().catch((err) => {
-  console.log("Erro ao iniciar servidor", err);
-});
+app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`)
+})
