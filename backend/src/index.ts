@@ -13,6 +13,8 @@ import ListPurchase from "./core/purchase/useCases/ListPurchase";
 import ListPurchaseController from "./adapters/purchase/ListPurchaseController";
 import DeletePurchase from "./core/purchase/useCases/DeletePurchase";
 import DeletePurchaseController from "./adapters/purchase/DeletePurchaseController";
+import UpdatePurchaseController from "./adapters/purchase/UpdatePurchaseController";
+import UpdatePurchase from "./core/purchase/useCases/UpdatePurchase";
 
 const app = express();
 const port = 4000;
@@ -44,6 +46,9 @@ new CreatePurchaseController(app, createPurchase);
 
 const listPurchase = new ListPurchase(repositoryPurchase);
 new ListPurchaseController(app, listPurchase);
+
+const updatePurchase = new UpdatePurchase(repositoryPurchase);
+new UpdatePurchaseController(app, updatePurchase);
 
 const deletePurchase = new DeletePurchase(repositoryPurchase);
 new DeletePurchaseController(app, deletePurchase);
