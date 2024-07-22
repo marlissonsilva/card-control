@@ -15,6 +15,8 @@ import DeletePurchase from "./core/purchase/useCases/DeletePurchase";
 import DeletePurchaseController from "./adapters/purchase/DeletePurchaseController";
 import UpdatePurchaseController from "./adapters/purchase/UpdatePurchaseController";
 import UpdatePurchase from "./core/purchase/useCases/UpdatePurchase";
+import GetByIdPurchase from "./core/purchase/useCases/GetByIdPurchase";
+import GetByIdPurchaseController from "./adapters/purchase/GetByIdPurchaseController";
 
 const app = express();
 const port = 4000;
@@ -52,6 +54,9 @@ new UpdatePurchaseController(app, updatePurchase);
 
 const deletePurchase = new DeletePurchase(repositoryPurchase);
 new DeletePurchaseController(app, deletePurchase);
+
+const getByIdPurchase = new GetByIdPurchase(repositoryPurchase);
+new GetByIdPurchaseController(app, getByIdPurchase);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

@@ -33,8 +33,8 @@ export default class RepositoryPurchaseMongoose implements Repository {
     return findPurchase?.toObject() as Purchase;
   }
 
-  async getById(_id: string): Promise<Purchase> {
-    const purchase = await PurchaseModel.findById({_id});
+  async getById(userId: string, _id: string): Promise<Purchase> {
+    const purchase = await PurchaseModel.findOne({userId, _id});
     return purchase?.toObject() as Purchase;
   }
 

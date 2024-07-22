@@ -18,7 +18,7 @@ export default class UpdatePurchase implements UseCase<Input, Purchase | null> {
   async toExecute(input: Input): Promise<Purchase | null> {
     const {id, userId, description, price, purchasedIn, responsable, status} =
       input;
-    const purchase = await this.repository.getById(id!);
+    const purchase = await this.repository.getById(userId, id!);
     if (!purchase) {
       return null;
     }
