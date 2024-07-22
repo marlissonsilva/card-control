@@ -16,10 +16,14 @@ export default class DeletePurchaseController {
 
     server.delete("/purchase/:id", async (req: AuthRequest, res: Response) => {
       const id = req.params.id;
-      if (!id) {
+
+      const result = await this.useCase.toExecute(id!);
+
+      if (!result) {
         res.status(401).json("Não encontrado");
+        return
       }
-      await this.useCase.toExecute(id);
+
       res.status(200).json({message: "Compra apagada"});
     });
   }

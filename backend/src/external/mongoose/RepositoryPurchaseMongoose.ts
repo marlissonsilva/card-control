@@ -17,7 +17,6 @@ export default class RepositoryPurchaseMongoose implements Repository {
   }
 
   async update(purchase: Partial<Purchase>): Promise<Purchase> {
-    console.log("Mongoose Update", purchase);
     const findPurchase = await PurchaseModel.findOneAndUpdate(
       {_id: purchase.id, userId: purchase.userId},
       {
@@ -31,7 +30,6 @@ export default class RepositoryPurchaseMongoose implements Repository {
       },
       {new: true}
     );
-    console.log(findPurchase);
     return findPurchase?.toObject() as Purchase;
   }
 
@@ -41,6 +39,7 @@ export default class RepositoryPurchaseMongoose implements Repository {
   }
 
   async delete(_id: string): Promise<any> {
+    console.log("Delete", await PurchaseModel.deleteOne({_id}));
     return await PurchaseModel.deleteOne({_id});
   }
 }

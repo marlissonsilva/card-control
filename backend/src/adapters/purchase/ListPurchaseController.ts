@@ -17,12 +17,12 @@ export default class ListPurchaseController {
       try {
         const userId = (req as any).user._id;
         if (!userId) {
-          return res.status(401).send({message: "Token inválido"});
+          return res.status(401).json({message: "Token inválido"});
         }
         const result = await this.useCase.toExecute(userId);
-        res.send(result);
+        res.status(200).json(result);
       } catch (err) {
-        res.status(401).send({message: `Erro ao consultar links: ${err}`});
+        res.status(401).json({message: `Erro ao consultar links: ${err}`});
       }
     });
   }

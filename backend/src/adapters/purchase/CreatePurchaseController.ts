@@ -19,10 +19,10 @@ export default class CreatePurchaseController {
         price,
         purchasedIn,
         responsable,
-        status
+        status,
       });
 
-      res.status(201).json("Cadastrada");
+      res.status(201).json({message: "Cadastrada"});
     });
   }
 }

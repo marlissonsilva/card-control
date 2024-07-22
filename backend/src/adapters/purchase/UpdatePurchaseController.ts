@@ -26,8 +26,6 @@ export default class UpdatePurchaseController {
           status,
         });
 
-        console.log("Controller", purchase);
-
         if (!purchase) {
           res.status(404).json({message: "Não encontrada"});
           return;
