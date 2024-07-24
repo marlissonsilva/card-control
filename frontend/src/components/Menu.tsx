@@ -47,7 +47,7 @@ export default function Menu(props: MenuProps) {
     <ul>
       <menu
         className={`${mobile ?? mobile} ${
-          open ? "absolute top-20 p-4 right-1 bg-zinc-900" : "hidden"
+          open ? "absolute top-20 p-4 right-1 bg-zinc-900 space-y-3" : "hidden"
         } 
          md:flex gap-6`}
       >

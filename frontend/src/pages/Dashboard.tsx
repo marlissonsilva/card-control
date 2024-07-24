@@ -5,6 +5,7 @@ import useItem from "@/hooks/useItem";
 import {useState} from "react";
 export default function Dashboard() {
   const [amount, setAmount] = useState(0);
+  const {items, deleteItem} = useItem();
 
   function currencyFormat(value: number) {
     return new Intl.NumberFormat("pt-BR", {
@@ -20,7 +21,7 @@ export default function Dashboard() {
   return (
     <Layout title="Lista de compras" className="min-h-[95vh]">
       <Amount value={currencyFormat(amount)} />
-      <Card alterarAmount={alterar} />
+      <Card alterarAmount={alterar} data={items} deleteItem={deleteItem} />
     </Layout>
   );
 }
