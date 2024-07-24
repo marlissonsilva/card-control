@@ -5,12 +5,15 @@ import {useRouter} from "next/router";
 import Layout from "@/components/Layout";
 import Input from "@/components/Input";
 import useAuth from "@/hooks/useAuth";
+import Load from "@/components/Load";
 
 export default function Auth() {
   const router = useRouter();
   const [action, setAction] = useState("login");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const {setLogged} = useAuth();
 
   const handleLogin = async (event: any) => {
@@ -23,18 +26,21 @@ export default function Auth() {
         Request.addToken(response);
         setLogged(true);
         router.push("/Dashboard");
+        setLoading(false);
         return;
       }
       window.alert("Usuário ou senha incorretos");
+      setLoading(false);
     } catch (error) {
       console.log(error);
       window.alert("Usuário ou senha incorretos");
+      setLoading(false);
     }
   };
 
   const handleCreateUser = async (event: any) => {
     event.preventDefault();
-    const dataToCheck = {email, password};
+    const dataToCheck = {name, email, password};
 
     try {
       const response = await Request.post("/user/create", dataToCheck);
@@ -43,6 +49,7 @@ export default function Auth() {
         setEmail("");
         setPassword("");
         setAction("login");
+        setLoading(false);
         return;
       }
       console.log("Lançar erro de criação de usuário");
@@ -52,6 +59,7 @@ export default function Auth() {
   };
 
   function handleRequest(event: any) {
+    setLoading(true);
     if (action === "login") {
       handleLogin(event);
       return;
@@ -99,6 +107,17 @@ export default function Auth() {
             action="/"
             className="flex flex-col align-center"
           >
+            {action !== "login" ? (
+              <Input
+                label="name"
+                text="Nome"
+                value={name}
+                valueChange={setName}
+              />
+            ) : (
+              ""
+            )}
+
             <Input
               label="email"
               text="Email"
@@ -120,6 +139,7 @@ export default function Auth() {
               {action === "login" ? "Login" : "Criar"}
             </Button>
           </form>
+          <Load loading={loading} />
         </div>
       </div>
     </Layout>
