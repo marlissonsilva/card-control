@@ -19,9 +19,13 @@ export default function Dashboard() {
   }
 
   return (
-    <Layout title="Lista de compras" className="min-h-[95vh]">
-      <Amount value={currencyFormat(amount)} />
-      <Card alterarAmount={alterar} data={items} deleteItem={deleteItem} />
+    <Layout title="Registros" className="min-h-[95vh]">
+      <Amount
+        width={items && items?.length}
+        value={currencyFormat(amount)}
+        className={items?.length === 0 ? "hidden" : "inline"}
+      />
+        <Card alterarAmount={alterar} data={items} deleteItem={deleteItem} />
     </Layout>
   );
 }
