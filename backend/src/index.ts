@@ -23,7 +23,7 @@ const port = 4000;
 const db = new ConnectDatabase();
 db.connect();
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://mural-frontend.vercel.app"],
+  origin: ["http://localhost:3000", "https://card-control-ten.vercel.app"],
   optionsSuccessStatus: 200,
 };
 
