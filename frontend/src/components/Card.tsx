@@ -5,12 +5,15 @@ import Link from "next/link";
 import {useState} from "react";
 interface CardProps {
   alterarAmount(value: number): void;
+  deleteItem: (id: string) => void;
+  data: any;
 }
 
 export default function Card(props: CardProps) {
-  const {items, deleteItem} = useItem();
-
-  const totalPrices = items?.reduce((acc, item) => acc + item.price, 0);
+  const totalPrices = props.data?.reduce(
+    (acc: number, item: any) => acc + item.price,
+    0
+  );
   props.alterarAmount(totalPrices);
 
   function currencyFormat(value: number) {
@@ -27,22 +30,19 @@ export default function Card(props: CardProps) {
   }
 
   function renderData() {
-    if (!items || items.length === 0) {
+    if (!props.data || props.data.length === 0) {
       return <p className="text-center text-white">Nenhum item cadastrado.</p>;
     }
 
-    return items.map((item, i) => {
+    return props.data.map((item: any, i: number) => {
       return (
         <div
           key={item._id}
           className={`
-          flex items-center justify-between p-4 rounded-md 
+          flex items-center justify-between p-4 rounded-md mt-2
           ${i % 2 === 0 ? "bg-zinc-300" : "bg-zinc-200"}`}
         >
           <div className="text-left">
-            <h3 className="text-lg">
-              Nome: <span className="text-2xl font-medium ">{item.name}</span>
-            </h3>
             <p className="text-lg">
               Preço:{" "}
               {
@@ -64,10 +64,13 @@ export default function Card(props: CardProps) {
               Responsável:{" "}
               <span className="font-medium">{item.responsable}</span>
             </p>
+            <p>
+              Status: {item.status ? <span className="">Fechada</span> : <span>Aberta</span>}
+            </p>
           </div>
           <div className="flex flex-col gap-6">
             <div className="text-red-600 hover:bg-red-400 rounded-full p-1 cursor-pointer">
-              <IconTrash size={30} onClick={() => deleteItem(item._id)} />
+              <IconTrash size={30} onClick={() => props.deleteItem(item._id)} />
             </div>
             <Link
               href={`/Edit/${item._id}`}
