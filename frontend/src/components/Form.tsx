@@ -12,21 +12,21 @@ export default function Form(props: FormProps) {
   const router = useRouter();
   const {saveItem, getById, getAll} = useItem();
   const id = props.id ?? "";
-  const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [purchasedIn, setPurchasedIn] = useState("");
   const [responsable, setResponsable] = useState("");
+  const [status, setStatus] = useState(false);
 
   useEffect(() => {
     (async () => {
       if (props.id) {
         const item = await getById(props.id);
-        setName(item.name);
         setPrice(item.price);
         setDescription(item.description);
         setPurchasedIn(item.purchasedIn);
         setResponsable(item.responsable);
+        setStatus(item.status);
       }
     })();
   }, []);
@@ -38,13 +38,6 @@ export default function Form(props: FormProps) {
       ) : (
         false
       )}
-      <Input
-        label="name"
-        text="Name"
-        value={name}
-        valueChange={setName}
-        className="mb-5"
-      />
       <Input
         label="price"
         text="Preço"
@@ -62,7 +55,7 @@ export default function Form(props: FormProps) {
         label="purchasedIn"
         text="Comprado em"
         type="date"
-        value={purchasedIn.slice(0, 10)}
+        value={purchasedIn}
         valueChange={setPurchasedIn}
       />
       <Input
@@ -76,7 +69,7 @@ export default function Form(props: FormProps) {
           color="blue"
           className="mr-2"
           onClick={() => {
-            saveItem(name, price, description, purchasedIn, responsable, id);
+            saveItem(price, description, purchasedIn, responsable, status, id);
             router.push("/Dashboard");
             getAll();
           }}

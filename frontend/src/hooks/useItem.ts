@@ -12,14 +12,14 @@ export default function useItem() {
     (async () => {
       getAll();
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getAll() {
     const data = await repo.getAll();
     if (data.status) {
       router.push("/");
-      return
+      return;
     }
     setItem(data);
   }
@@ -35,14 +35,14 @@ export default function useItem() {
   }
 
   async function saveItem(
-    name: string,
     price: number,
     description: string,
     purchasedIn: string,
     responsable: string,
+    status: boolean,
     id: string
   ) {
-    await repo.save(name, price, description, purchasedIn, responsable, id);
+    await repo.save(price, description, purchasedIn, responsable, status, id);
     getAll();
   }
 
