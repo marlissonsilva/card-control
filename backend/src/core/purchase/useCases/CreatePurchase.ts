@@ -6,21 +6,21 @@ type Input = {
   description: string;
   price: number;
   purchasedIn: Date;
-  responsable: string;
+  responsible: string;
   status: boolean;
 };
 export default class CreatePurchase implements UseCase<Input, void> {
   constructor(private readonly repository: Repository) {}
 
   async toExecute(input: Input): Promise<void> {
-    const {userId, description, price, purchasedIn, responsable, status} =
+    const {userId, description, price, purchasedIn, responsible, status} =
       input;
     await this.repository.create({
       userId,
       description,
       price,
       purchasedIn,
-      responsable,
+      responsible,
       status,
     });
   }

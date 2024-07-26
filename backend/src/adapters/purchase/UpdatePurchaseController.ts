@@ -12,7 +12,7 @@ export default class UpdatePurchaseController {
     server.use((req, res, next) => authMiddleware.authenticate(req, res, next));
     server.put("/purchase/:id", async (req: AuthRequest, res: Response) => {
       const id = req.params.id;
-      const {description, price, purchasedIn, responsable, status} = req.body;
+      const {description, price, purchasedIn, responsible, status} = req.body;
 
       const purchase = await useCase.toExecute({
         userId: req.user?._id!,
@@ -20,7 +20,7 @@ export default class UpdatePurchaseController {
         description,
         price,
         purchasedIn,
-        responsable,
+        responsible,
         status,
       });
 

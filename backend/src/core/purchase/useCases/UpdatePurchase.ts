@@ -7,7 +7,7 @@ type Input = {
   description: string;
   price: number;
   purchasedIn: Date;
-  responsable: string;
+  responsible: string;
   status: boolean;
   id: string;
 };
@@ -16,7 +16,7 @@ export default class UpdatePurchase implements UseCase<Input, Purchase | null> {
   constructor(private readonly repository: Repository) {}
 
   async toExecute(input: Input): Promise<Purchase | null> {
-    const {id, userId, description, price, purchasedIn, responsable, status} =
+    const {id, userId, description, price, purchasedIn, responsible, status} =
       input;
     const purchase = await this.repository.getById(userId, id!);
     if (!purchase) {
@@ -28,7 +28,7 @@ export default class UpdatePurchase implements UseCase<Input, Purchase | null> {
       description,
       price,
       purchasedIn,
-      responsable,
+      responsible,
       status,
     });
   }

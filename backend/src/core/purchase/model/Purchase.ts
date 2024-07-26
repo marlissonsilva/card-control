@@ -4,6 +4,6 @@ export default interface Purchase {
   price: number;
   description: string;
   purchasedIn: Date;
-  responsable: string;
+  responsible: string;
   status: boolean;
 }

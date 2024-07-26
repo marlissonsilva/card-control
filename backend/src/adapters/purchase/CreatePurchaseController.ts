@@ -11,14 +11,14 @@ export default class CreatePurchaseController {
     const authMiddleware = new Auth();
     server.use((req, res, next) => authMiddleware.authenticate(req, res, next));
     server.post("/purchase/create", async (req: AuthRequest, res: Response) => {
-      const {description, price, purchasedIn, responsable, status} = req.body;
+      const {description, price, purchasedIn, responsible, status} = req.body;
 
       await useCase.toExecute({
         userId: req.user?._id,
         description,
         price,
         purchasedIn,
-        responsable,
+        responsible,
         status,
       });
 

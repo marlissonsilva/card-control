@@ -5,7 +5,7 @@ export interface PurchaseProps extends Document {
   price: number;
   description: string;
   purchasedIn: string;
-  responsable: string;
+  responsible: string;
   status: boolean;
 }
 
@@ -14,7 +14,7 @@ const PurchaseSchema: Schema = new mongoose.Schema({
   price: {type: Number, required: true, minlength: 3, maxlength: 10},
   description: {type: String, maxlength: 50},
   purchasedIn: {type: Date},
-  responsable: {type: String, required: true, minlength: 3, maxlength: 50},
+  responsible: {type: String, required: true, minlength: 3, maxlength: 50},
   createdAt: {type: Date, default: Date.now},
   status: {type: Boolean, default: false},
 });
