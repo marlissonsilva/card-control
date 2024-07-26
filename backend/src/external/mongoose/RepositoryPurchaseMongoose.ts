@@ -39,7 +39,6 @@ export default class RepositoryPurchaseMongoose implements Repository {
   }
 
   async delete(_id: string): Promise<any> {
-    console.log("Delete", await PurchaseModel.deleteOne({_id}));
     return await PurchaseModel.deleteOne({_id});
   }
 }
