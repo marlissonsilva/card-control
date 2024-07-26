@@ -17,6 +17,8 @@ import UpdatePurchaseController from "./adapters/purchase/UpdatePurchaseControll
 import UpdatePurchase from "./core/purchase/useCases/UpdatePurchase";
 import GetByIdPurchase from "./core/purchase/useCases/GetByIdPurchase";
 import GetByIdPurchaseController from "./adapters/purchase/GetByIdPurchaseController";
+import FilterByResponsible from "./core/purchase/useCases/FilterByResponsible";
+import FilterByResponsibleController from "./adapters/purchase/FilterByResponsibleController";
 
 const app = express();
 const port = 4000;
@@ -57,6 +59,9 @@ new DeletePurchaseController(app, deletePurchase);
 
 const getByIdPurchase = new GetByIdPurchase(repositoryPurchase);
 new GetByIdPurchaseController(app, getByIdPurchase);
+
+const filterByResponsible = new FilterByResponsible(repositoryPurchase);
+new FilterByResponsibleController(app, filterByResponsible);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

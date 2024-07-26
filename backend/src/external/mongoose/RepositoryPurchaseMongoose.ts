@@ -3,6 +3,14 @@ import Repository from "../../core/purchase/useCases/Repository";
 import PurchaseModel from "../db/modelMongoose/Purchase";
 
 export default class RepositoryPurchaseMongoose implements Repository {
+  async findByResponsible(responsible: string): Promise<Purchase[]> {
+    const filteredPurchases = await PurchaseModel.find({
+      responsible,
+    });
+    return filteredPurchases.map((purchase) =>
+      purchase.toObject()
+    ) as Purchase[];
+  }
   async findByUserId(userId: string): Promise<Purchase[]> {
     const purchases = await PurchaseModel.find({
       userId,
@@ -24,7 +32,7 @@ export default class RepositoryPurchaseMongoose implements Repository {
           description: purchase.description,
           price: purchase.price,
           purchasedIn: purchase.purchasedIn,
-          responsable: purchase.responsable,
+          responsible: purchase.responsible,
           status: purchase.status,
         },
       },

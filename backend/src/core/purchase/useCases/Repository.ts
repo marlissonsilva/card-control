@@ -6,4 +6,5 @@ export default interface Repository {
   update(purchase: Purchase): Promise<Purchase | null>;
   getById(userId: string, id: string): Promise<Purchase>;
   delete(id: string): Promise<boolean>;
+  findByResponsible(responsible: string): Promise<Purchase[]>;
 }
