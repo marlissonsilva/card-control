@@ -14,7 +14,7 @@ export default class RepositoryPurchaseMongoose implements Repository {
   async findByUserId(userId: string): Promise<Purchase[]> {
     const purchases = await PurchaseModel.find({
       userId,
-    });
+    }).sort({createdAt: -1});
     return purchases.map((purchase) => purchase.toObject()) as Purchase[];
   }
 
@@ -34,6 +34,7 @@ export default class RepositoryPurchaseMongoose implements Repository {
           purchasedIn: purchase.purchasedIn,
           responsible: purchase.responsible,
           status: purchase.status,
+          createdAt: new Date(),
         },
       },
       {new: true}
