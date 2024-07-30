@@ -6,4 +6,5 @@ export default interface Purchase {
   purchasedIn: Date;
   responsible: string;
   status: boolean;
+  createdAt?: Date;
 }
