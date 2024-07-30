@@ -13,16 +13,20 @@ export default class CreatePurchaseController {
     server.post("/purchase/create", async (req: AuthRequest, res: Response) => {
       const {description, price, purchasedIn, responsible, status} = req.body;
 
-      await useCase.toExecute({
-        userId: req.user?._id,
-        description,
-        price,
-        purchasedIn,
-        responsible,
-        status,
-      });
+      try {
+        await useCase.toExecute({
+          userId: req.user?._id,
+          description,
+          price,
+          purchasedIn,
+          responsible,
+          status,
+        });
 
-      res.status(201).json({message: "Cadastrada"});
+        res.status(201).json({message: "Cadastrada"});
+      } catch (error) {
+        res.status(500).json({message: `Ero ao cadastrar compra, ${error}`});
+      }
     });
   }
 }

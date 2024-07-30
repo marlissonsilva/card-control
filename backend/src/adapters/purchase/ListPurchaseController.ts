@@ -14,15 +14,13 @@ export default class ListPurchaseController {
       authMiddleware.authenticate(req, res, next)
     );
     server.get("/purchase/list", async (req: AuthRequest, res: Response) => {
+      const userId = (req as any).user._id;
+
       try {
-        const userId = (req as any).user._id;
-        if (!userId) {
-          return res.status(401).json({message: "Token inválido"});
-        }
         const result = await this.useCase.toExecute(userId);
         res.status(200).json(result);
       } catch (err) {
-        res.status(401).json({message: `Erro ao consultar links: ${err}`});
+        res.status(401).json({message: `Erro ao consultar: ${err}`});
       }
     });
   }

@@ -16,6 +16,7 @@ export default class FilterByResponsibleController {
       "/purchase/filter/:responsible",
       async (req: AuthRequest, res: Response) => {
         const responsible = req.params.responsible;
+        
         try {
           const filter = await this.useCase.toExecute(responsible);
           res.status(200).json(filter);

@@ -13,23 +13,27 @@ export default class UpdatePurchaseController {
     server.put("/purchase/:id", async (req: AuthRequest, res: Response) => {
       const id = req.params.id;
       const {description, price, purchasedIn, responsible, status} = req.body;
+      
+      try {
+        const purchase = await useCase.toExecute({
+          userId: req.user?._id!,
+          id,
+          description,
+          price,
+          purchasedIn,
+          responsible,
+          status,
+        });
 
-      const purchase = await useCase.toExecute({
-        userId: req.user?._id!,
-        id,
-        description,
-        price,
-        purchasedIn,
-        responsible,
-        status,
-      });
+        if (!purchase) {
+          res.status(404).json({message: "Não encontrada"});
+          return;
+        }
 
-      if (!purchase) {
-        res.status(404).json({message: "Não encontrada"});
-        return;
+        res.status(201).json({message: "Atualizada"});
+      } catch (error) {
+        res.status(500).json({message: `Erro interno do servidor ${error}`});
       }
-
-      res.status(201).json({message: "Atualizada"});
     });
   }
 }

@@ -18,14 +18,18 @@ export default class DeletePurchaseController {
       const id = req.params.id;
       const userId = (req as any).user._id;
 
-      const result = await this.useCase.toExecute({userId, id});
+      try {
+        const result = await this.useCase.toExecute({userId, id});
 
-      if (!result) {
-        res.status(401).json("Não encontrado");
-        return;
+        if (!result) {
+          res.status(401).json("Não encontrado");
+          return;
+        }
+
+        res.status(200).json({message: "Compra apagada"});
+      } catch (error) {
+        res.status(500).json({message: `Erro ao deletar compra,${error}`});
       }
-
-      res.status(200).json({message: "Compra apagada"});
     });
   }
 }
