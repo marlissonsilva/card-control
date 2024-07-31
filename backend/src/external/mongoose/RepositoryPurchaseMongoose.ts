@@ -1,6 +1,7 @@
 import Purchase from "../../core/purchase/model/Purchase";
 import Repository from "../../core/purchase/useCases/Repository";
 import PurchaseModel from "../db/modelMongoose/Purchase";
+import ResponsibleModel from "../db/modelMongoose/Responsible";
 
 export default class RepositoryPurchaseMongoose implements Repository {
   async findByResponsible(
@@ -37,6 +38,14 @@ export default class RepositoryPurchaseMongoose implements Repository {
 
   async create(purchase: Partial<Purchase>): Promise<Purchase> {
     const newPurchase = new PurchaseModel(purchase);
+    const responsible = await ResponsibleModel.findOne({
+      userId: purchase.userId,
+      responsible: purchase.responsible,
+    });
+    if (!responsible) {
+      const newResponsible = new ResponsibleModel(purchase);
+      await newResponsible.save();
+    }
     await newPurchase.save();
     return newPurchase.toObject() as Purchase;
   }
