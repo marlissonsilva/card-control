@@ -1,0 +1,87 @@
+//---------------- Registrar Usuario
+POST http://localhost:4000/user/create
+Content-Type: application/json
+
+{
+    "name":"User 2",
+    "email":"teste4@gmail.com", 
+    "password":"123456"
+}
+
+
+//---------------- Logar usário
+###
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+    "email":"teste@gmail.com", 
+    "password":"123456"
+}
+
+//---------------- Cadastrar Compra
+###
+POST http://localhost:4000/purchase/create
+Content-Type: application/json
+Authorization:Bearer + token
+
+{
+  "description":"DEscrição da compra",
+  "price": 199.99, 
+  "purchasedIn":"2024/07/25", 
+  "responsible":"Fulano da Silva",
+  "status":false
+}
+
+
+//---------------- Listar Compras
+###
+GET http://localhost:4000/purchase/list?dateStart=2024-07-15&dateEnd=2024-08-15
+Authorization:Bearer + token
+
+//---------------- Excluir Compra
+###
+DELETE  http://localhost:4000/purchase/id-da-compra
+Authorization:Bearer + token
+
+//---------------- Atualizar Compra
+###
+PUT  http://localhost:4000/purchase/id-da-compra
+Content-Type: application/json
+Authorization:Bearer + token
+
+{
+  "description":"Descrição atualizada",
+  "price": 14.99, 
+  "purchasedIn":"2024/07/22", 
+  "responsible":"Fulano da Silva",
+  "status":true
+}
+
+//---------------- Filtrar por responsável
+###
+GET http://localhost:4000/purchase/filter/Fulano Pestana?dateStart=2024-07-15&dateEnd=2024-08-15
+Authorization:Bearer + token
+
+//---------------- Pegar uma Compra pelo Id
+###
+GET http://localhost:4000/purchase/id-da-compra
+Authorization:Bearer + token
+
+
+//---------------- Listar Responsáveis
+###
+GET http://localhost:4000/responsible/list
+Authorization:Bearer + token
+
+
+
+
+
+
+
+
+
+
+
+
