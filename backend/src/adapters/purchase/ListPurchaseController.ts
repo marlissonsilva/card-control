@@ -17,8 +17,6 @@ export default class ListPurchaseController {
       const userId = (req as any).user._id;
       const dateStart = String(req.query.dateStart);
       const dateEnd = String(req.query.dateEnd);
-      console.log(dateStart, dateEnd);
-
       try {
         const result = await this.useCase.toExecute({
           userId,

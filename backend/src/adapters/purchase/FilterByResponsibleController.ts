@@ -18,7 +18,6 @@ export default class FilterByResponsibleController {
         const responsible = req.params.responsible;
         const dateStart = String(req.query.dateStart);
         const dateEnd = String(req.query.dateEnd);
-        console.log(dateStart, dateEnd);
 
         try {
           const filter = await this.useCase.toExecute({
