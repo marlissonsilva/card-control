@@ -19,6 +19,9 @@ import GetByIdPurchase from "./core/purchase/useCases/GetByIdPurchase";
 import GetByIdPurchaseController from "./adapters/purchase/GetByIdPurchaseController";
 import FilterByResponsible from "./core/purchase/useCases/FilterByResponsible";
 import FilterByResponsibleController from "./adapters/purchase/FilterByResponsibleController";
+import RepositoryResponsibleMongoose from "./external/mongoose/RepositoryResponsibleMongoose";
+import ListResponsible from "./core/responsible/useCases/ListResponsible";
+import ListResponsibleController from "./adapters/responsible/ListResponsibleController";
 
 const app = express();
 const port = 4000;
@@ -62,6 +65,13 @@ new GetByIdPurchaseController(app, getByIdPurchase);
 
 const filterByResponsible = new FilterByResponsible(repositoryPurchase);
 new FilterByResponsibleController(app, filterByResponsible);
+
+//  -------------------Rotas dos Responsáveis
+
+const repositoryResponsible = new RepositoryResponsibleMongoose();
+
+const listResponsible = new ListResponsible(repositoryResponsible);
+new ListResponsibleController(app, listResponsible);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
