@@ -15,9 +15,16 @@ export default class ListPurchaseController {
     );
     server.get("/purchase/list", async (req: AuthRequest, res: Response) => {
       const userId = (req as any).user._id;
+      const dateStart = String(req.query.dateStart);
+      const dateEnd = String(req.query.dateEnd);
+      console.log(dateStart, dateEnd);
 
       try {
-        const result = await this.useCase.toExecute(userId);
+        const result = await this.useCase.toExecute({
+          userId,
+          dateStart,
+          dateEnd,
+        });
         res.status(200).json(result);
       } catch (err) {
         res.status(401).json({message: `Erro ao consultar: ${err}`});

@@ -16,9 +16,16 @@ export default class FilterByResponsibleController {
       "/purchase/filter/:responsible",
       async (req: AuthRequest, res: Response) => {
         const responsible = req.params.responsible;
-        
+        const dateStart = String(req.query.dateStart);
+        const dateEnd = String(req.query.dateEnd);
+        console.log(dateStart, dateEnd);
+
         try {
-          const filter = await this.useCase.toExecute(responsible);
+          const filter = await this.useCase.toExecute({
+            responsible,
+            dateStart,
+            dateEnd,
+          });
           res.status(200).json(filter);
         } catch (error) {
           res.status(401).json({
